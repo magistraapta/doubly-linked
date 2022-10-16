@@ -1,10 +1,11 @@
 public class linked {
    Node head;
-   
+   Node tail;
+
    public void tambahDepan(String data){
     Node newNode = new Node(data);
     if (head == null) {
-        head = newNode;
+        head = tail = newNode;
         return;
     } else {
         newNode.next = head;
@@ -28,59 +29,33 @@ public class linked {
         }
     }
     
-    Node hapusDepan(){
-        Node toDelete = new Node(null);
-        if (head == null || head.next == null) {
-            head = null;
-            return toDelete;
+    public void hapusDepan(){
+        if (head == null) {
+            head = tail = null;
         }
         head = head.next;
         head.prev = null;
-        return toDelete;
     }
 
-    Node hapusBelakang(){
+    public void hapusBelakang(){
         Node current = head;
-        if (head == null || head.next == null) {
-            head = null;
-            return current;
+        if(head==tail){
+            head=tail=null;
         }
-        while (current.next != null) {
-            current = current.next;
-        }
-        return current.prev.next = null;
-    }
-
-    Node hapusNilai(String data){
-        Node current = head;
-        while (current.data != data) {
-            current = current.next;
-        }
-
-        if (current != null) {
-            if (current.next != null) {
-                current.next.prev = current.next;
+        else {
+            while(current.next.next != null){
+                current=current.next;
             }
-            current.prev.next = current.next;
+            current.next=null;
+
         }
-        return current;
     }
 
-    public void print(){
+    public void print (){
         Node current = head;
-        while (current != null) {
-            System.out.print(current.data + " -> ");
-            current = current.next;
+        while (current !=null){
+            System.out.println(current.data);
+            current=current.next;
         }
-        System.out.println("NULL");
-    }
-
-    public void showPrev(){
-        Node current = head;
-        while (current.next != null) {
-            System.out.println(current.prev.data + " -> ");
-            current = current.prev;
-        }
-        System.out.println("NULL");
     }
 }
